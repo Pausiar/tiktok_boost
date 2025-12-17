@@ -1,4 +1,4 @@
-# 🤖 TikTok Bot - Enhanced Version
+#TikTok Bot - Enhanced Version
 
 Enhanced TikTok automation bot with modern Selenium practices, better error handling, and professional logging.
 
@@ -28,11 +28,11 @@ Using automation bots to manipulate TikTok metrics (views, likes, followers) **V
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
-- Python 3.7+
+- Python 3.7+ (3.11 recomended)
 - Google Chrome browser
 - ChromeDriver
 
@@ -102,7 +102,7 @@ Edit `config.json`:
 
 ---
 
-## 🎮 Usage
+## Usage
 
 ### Basic Usage
 
