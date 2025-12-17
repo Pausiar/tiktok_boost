@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Bot - Control Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #856404;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .mode-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .mode-option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mode-option:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .mode-option.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .mode-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .mode-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .config-output {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            display: none;
+        }
+
+        .config-output.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .config-output h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #014361;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🤖</div>
+            <h1>TikTok Bot Control Panel</h1>
+            <p style="color: #666; font-size: 14px;">Configure y genere su archivo de configuración</p>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Advertencia:</strong> Este bot viola los términos de servicio de TikTok y puede resultar en baneo permanente de cuenta. Usar solo con fines educativos.
+        </div>
+
+        <form id="botForm">
+            <div class="form-group">
+                <label for="videoUrl">🎥 URL del Video de TikTok</label>
+                <input 
+                    type="text" 
+                    id="videoUrl" 
+                    placeholder="https://www.tiktok.com/@usuario/video/1234567890"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>🎯 Modo del Bot</label>
+                <div class="mode-selector">
+                    <div class="mode-option active" data-mode="1">
+                        <div class="mode-icon">👁️</div>
+                        <div class="mode-label">Views</div>
+                    </div>
+                    <div class="mode-option" data-mode="2">
+                        <div class="mode-icon">❤️</div>
+                        <div class="mode-label">Hearts</div>
+                    </div>
+                    <div class="mode-option" data-mode="4">
+                        <div class="mode-icon">👥</div>
+                        <div class="mode-label">Followers</div>
+                    </div>
+                </div>
+                <input type="hidden" id="botMode" value="1">
+            </div>
+
+            <div class="form-group">
+                <label for="chromedriverPath">🔧 Ruta de ChromeDriver</label>
+                <input 
+                    type="text" 
+                    id="chromedriverPath" 
+                    value="chromedriver"
+                    placeholder="chromedriver o /ruta/completa/chromedriver"
+                >
+                <small style="color: #666; font-size: 12px;">Windows: chromedriver.exe | Mac/Linux: chromedriver</small>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="headless">
+                    <label for="headless" style="margin-bottom: 0;">Modo Headless (navegador oculto)</label>
+                </div>
+                <small style="color: #666; font-size: 12px; margin-left: 30px;">⚠️ No recomendado: dificulta resolver captchas</small>
+            </div>
+
+            <div class="form-group">
+                <label for="maxRetries">🔄 Intentos máximos en caso de error</label>
+                <input 
+                    type="number" 
+                    id="maxRetries" 
+                    value="3"
+                    min="1"
+                    max="10"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="waitTime">⏱️ Tiempo de espera base (segundos)</label>
+                <input 
+                    type="number" 
+                    id="waitTime" 
+                    value="10"
+                    min="5"
+                    max="60"
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                ✨ Generar Configuración
+            </button>
+        </form>
+
+        <div id="configOutput" class="config-output">
+            <h3>📄 Archivo config.json generado:</h3>
+            <pre id="configCode"></pre>
+            <button class="copy-btn" onclick="copyConfig()">📋 Copiar al portapapeles</button>
+
+            <div class="instructions">
+                <strong>📝 Instrucciones de uso:</strong>
+                <ol>
+                    <li>Copie el contenido JSON de arriba</li>
+                    <li>Cree un archivo llamado <code>config.json</code> en la carpeta del bot</li>
+                    <li>Pegue el contenido copiado en el archivo</li>
+                    <li>Guarde el archivo</li>
+                    <li>Ejecute: <code>python tiktok_bot.py</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🔗 <a href="https://github.com/Pausiar/tiktok_boost" target="_blank">Ver repositorio en GitHub</a></p>
+            <p style="margin-top: 10px;">Hecho con ❤️ para fines educativos</p>
+        </div>
+    </div>
+
+    <script>
+        // Mode selector
+        document.querySelectorAll('.mode-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.mode-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('botMode').value = this.dataset.mode;
+            });
+        });
+
+        // Form submission
+        document.getElementById('botForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const config = {
+                video_url: document.getElementById('videoUrl').value,
+                bot_mode: parseInt(document.getElementById('botMode').value),
+                chromedriver_path: document.getElementById('chromedriverPath').value,
+                headless: document.getElementById('headless').checked,
+                max_retries: parseInt(document.getElementById('maxRetries').value),
+                base_wait_time: parseInt(document.getElementById('waitTime').value),
+                target_site: "https://vipto.de/"
+            };
+
+            const configJSON = JSON.stringify(config, null, 4);
+            document.getElementById('configCode').textContent = configJSON;
+            document.getElementById('configOutput').classList.add('show');
+            
+            // Smooth scroll to output
+            document.getElementById('configOutput').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Copy to clipboard
+        function copyConfig() {
+            const configText = document.getElementById('configCode').textContent;
+            navigator.clipboard.writeText(configText).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ ¡Copiado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#28a745';
+                }, 2000);
+            }).catch(err => {
+                alert('Error al copiar: ' + err);
+            });
+        }
+
+        // Auto-fill example for testing
+        if (window.location.search.includes('demo=true')) {
+            document.getElementById('videoUrl').value = 'https://www.tiktok.com/@example/video/1234567890';
+        }
+    </script>
+</body>
+</html>
