@@ -1,0 +1,13 @@
+{
+    "video_url": "https://www.tiktok.com/@your_username/video/1234567890123456789",
+    "bot_mode": 1,
+    "chromedriver_path": "chromedriver",
+    "headless": false,
+    "max_retries": 3,
+    "base_wait_time": 10,
+    "target_site": "https://vipto.de/",
+    "_comment_bot_mode": "1=Views, 2=Hearts, 3=Views+Hearts(not implemented), 4=Followers",
+    "_comment_video_url": "Replace with your TikTok video URL",
+    "_comment_chromedriver": "Path to chromedriver executable (add .exe for Windows)",
+    "_comment_headless": "Set to true to run browser in background (not recommended for captcha)"
+}
